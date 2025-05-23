@@ -1,0 +1,5 @@
+.env
+build_logs
+workspace
+dind_storage
+qdrant_data

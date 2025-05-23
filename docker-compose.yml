@@ -1,0 +1,38 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+
+  dind:
+    image: docker:24-dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    expose:
+      - "2375"
+    volumes:
+      - ./dind_storage:/var/lib/docker
+
+  core:
+    build: . 
+    env_file:
+      - .env
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - DOCKER_HOST=tcp://dind:2375
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - qdrant
+      - dind
+    volumes:
+      - ./workspace:/workspace
+      - ./build_logs:/build_logs
+    command: ["python", "-m", "src.main"]
+
+volumes:
+  qdrant_data:
+  dind_storage:

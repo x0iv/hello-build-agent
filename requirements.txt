@@ -1,0 +1,21 @@
+# ─── Core LLM / agent stack ────────────────────────────────────────────
+langchain>=0.2            # chains, tools, memory
+langchain-community
+langchain_openai
+openai>=1.30.5             # chat & embeddings
+tiktoken>=0.5.2            # tokenizer for cost estimates
+
+# ─── Vector store ──────────────────────────────────────────────────────
+qdrant-client>=1.7.4       # Python SDK for Qdrant
+
+# ─── Repo handling & Docker orchestration ──────────────────────────────
+gitpython>=3.1.42          # clone / inspect git repos
+docker>=7.0.0              # Docker SDK for Python
+
+# ─── Config, CLI, UX ───────────────────────────────────────────────────
+python-dotenv>=1.0.1       # load .env
+rich>=13.7.1               # colourful logs / pretty-print
+typer[all]>=0.12.3         # ergonomic CLI (click-based)
+
+# ─── Parsing helpers ─────────────────────────────
+pydantic>=2.7

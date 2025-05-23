@@ -1,0 +1,79 @@
+# ──────────────────────────────────────────────────────────────────────
+# hello_build_agent - pyproject.toml
+# build →   hatchling
+# version → taken from the latest Git tag  (e.g.  v1.2.3)
+# ──────────────────────────────────────────────────────────────────────
+
+[build-system]
+requires = ["hatchling>=1.22.0", "hatch-vcs>=0.3"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"           # ← version comes from Git tag  vX.Y.Z
+raw-options.tag_scheme = "v{version}"
+
+[project]
+name = "hello-build-agent"
+dynamic = ["version"]
+description = "Autonomous build assistant that generates Dockerfiles, ingests repos into Qdrant, and self-heals via LLM."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [
+  { name = "Ivan Khozyainov", email = "ivan.khozyainov@gmail.com" }
+]
+keywords = ["devops", "docker", "LLM", "ci", "qdrant"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+]
+
+dependencies = [
+  "typer[all]>=0.12",
+  "rich>=13.7",
+  "langchain-openai>=0.1.0",
+  "openai>=1.14",
+  "docker>=7.0",
+  "gitpython>=3.1",
+  "qdrant-client>=1.9",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "black",
+  "ruff",
+  "pre-commit",
+  "bumpver",
+]
+
+[project.scripts]
+hello-build-agent = "hello_build_agent.cli:app"
+
+[project.urls]
+Homepage   = "https://github.com/x0iv/hello-build-agent"
+Changelog  = "https://github.com/x0iv/hello-build-agent/releases"
+Issues     = "https://github.com/x0iv/hello-build-agent/issues"
+
+# ──────────────────────────────────────────────────────────────────────
+# Optional lint/format config (ruff & black) to keep repo consistent
+# ──────────────────────────────────────────────────────────────────────
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+# ──────────────────────────────────────────────────────────────────────
+# Tell hatch to exclude big test/data folders from the wheel
+# ──────────────────────────────────────────────────────────────────────
+[tool.hatch.build.targets.wheel]
+exclude = ["/tests", "/examples", "/docs"]
