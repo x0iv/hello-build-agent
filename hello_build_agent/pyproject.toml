@@ -6,10 +6,7 @@
 
 [build-system]
 requires = ["hatchling>=1.22.0", "hatch-vcs>=0.3"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "vcs"           # ← version comes from Git tag  vX.Y.Z
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "hello-build-agent"
