@@ -13,8 +13,8 @@ source = "vcs"           # ← version comes from Git tag  vX.Y.Z
 
 [project]
 name = "hello-build-agent"
-dynamic = ["version"]
 description = "Autonomous build assistant that generates Dockerfiles, ingests repos into Qdrant, and self-heals via LLM."
+version = "0.5.0"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
