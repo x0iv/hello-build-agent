@@ -10,7 +10,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"           # ← version comes from Git tag  vX.Y.Z
-raw-options.tag_scheme = "v{version}"
+tag-pattern = "v(?P<version>.+)"
 
 [project]
 name = "hello-build-agent"
