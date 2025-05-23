@@ -63,20 +63,6 @@ CLI ─┬─ SystemPrompt (strict JSON contract)
 
 ---
 
-## 🏗️  CI/CD pipeline
-
-```text
-tests → build wheel/sdist → publish PyPI → build & push Docker image
-(triggered on git tag vX.Y.Z by .github/workflows/ci-cd.yml)
-```
-
-1. `pytest` must pass.
-2. Wheel+sdist built with **hatchling**; version comes from tag.
-3. Uploaded to PyPI via `PYPI_API_TOKEN`.
-4. Docker image `yourname/hello-build-agent:latest` + `:vX.Y.Z`
-   pushed to Docker Hub (or GHCR).
-
----
 
 ## 📜 License
 
