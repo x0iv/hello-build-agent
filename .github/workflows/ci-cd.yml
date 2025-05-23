@@ -29,10 +29,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Extract version from tag
+      
+      - name: Extract version from ref
         id: meta
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+        run: |
+          REF="${GITHUB_REF}"
+          if [[ "$REF" == refs/tags/"v"* ]]; then
+            VERSION="${REF#refs/tags/v}"
+          elif [[ "$REF" == refs/tags/* ]]; then
+            VERSION="${REF#refs/tags/}"
+          else
+            VERSION="${REF#refs/heads/}"
+            VERSION="${VERSION//\//-}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
 
       # ───────── Build wheel & sdist ─────────
       - name: Set up Python
@@ -60,6 +71,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Prepare tag
+        id: prep
+        run: echo "branch=$(echo ${GITHUB_REF##*/} | tr '/' '-')" >> $GITHUB_OUTPUT
 
       - name: Build & push image
         uses: docker/build-push-action@v5
