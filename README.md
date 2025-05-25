@@ -10,7 +10,7 @@
 
 [Changelog](CHANGELOG.md) • [License](LICENSE)
 
-[![Build Agent Demo](https://github.com/x0iv/hello-build-agent/raw/main/peek.gif)](https://github.com/x0iv/hello-build-agent/raw/main/peek.gif)
+[![Build Agent Demo]([https://github.com/x0iv/hello-build-agent/raw/main/peek.gif](https://raw.githubusercontent.com/x0iv/hello-build-agent/refs/heads/main/peek.gif))]([https://github.com/x0iv/hello-build-agent/raw/main/peek.gif](https://raw.githubusercontent.com/x0iv/hello-build-agent/refs/heads/main/peek.gif))
 ---
 
 ## ✨ Key features
