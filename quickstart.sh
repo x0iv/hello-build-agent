@@ -81,7 +81,7 @@ fi
 
 # ---------- 6. Copy .env.example → .env ----------
 if [[ ! -f .env ]]; then
-  cp --update=none .env.example .env
+  cp .env.example .env
   echo "Created .env from .env.example"
 
   # First run checkings
