@@ -13,6 +13,16 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | \
     apt-get update && apt-get install -y docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
 
+LABEL org.opencontainers.image.version="0.5.5" \
+    org.opencontainers.image.revision="$HBA_VERSION" \
+    org.opencontainers.image.title="hello-build-agent" \
+    org.opencontainers.image.description="Autonomous Dockerfile generator & build agent" \
+    org.opencontainers.image.url="https://github.com/x0iv/hello-build-agent" \
+    org.opencontainers.image.documentation="https://github.com/x0iv/hello-build-agent/blob/main/README.md" \
+    org.opencontainers.image.source="https://github.com/x0iv/hello-build-agent" \
+    org.opencontainers.image.changelog="https://github.com/x0iv/hello-build-agent/blob/main/CHANGELOG.md"
+
+
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

@@ -6,19 +6,22 @@
 
 [build-system]
 requires = ["hatchling>=1.22.0", "hatch-vcs>=0.3"]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 
 [project]
 name = "hello-build-agent"
 description = "Autonomous build assistant that generates Dockerfiles, ingests repos into Qdrant, and self-heals via LLM."
-version = "0.5.0"
+dynamic=["version"]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 authors = [
   { name = "Ivan Khozyainov", email = "ivan.khozyainov@gmail.com" }
 ]
-keywords = ["devops", "docker", "LLM", "ci", "qdrant"]
+keywords = [
+  "agent", "docker", "devops-tools", "dind", "rag",
+  "pypi-package", "qdrant", "langchain", "langchain-python", "agentic-ai"
+]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -73,3 +76,6 @@ ignore = ["E501"]
 # ──────────────────────────────────────────────────────────────────────
 [tool.hatch.build.targets.wheel]
 exclude = ["/tests", "/examples", "/docs"]
+
+[tool.hatch.version]
+source = "vcs"

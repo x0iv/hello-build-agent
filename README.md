@@ -8,6 +8,9 @@
 [![CI](https://github.com/x0iv/hello-build-agent/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/x0iv/hello-build-agent/actions)
 [![Docker](https://img.shields.io/docker/pulls/x0iv/hello-build-agent)](https://hub.docker.com/r/x0iv/hello-build-agent)
 
+[Changelog](CHANGELOG.md) • [License](LICENSE)
+
+[![Build Agent Demo](https://github.com/x0iv/hello-build-agent/raw/main/peek.gif)](https://github.com/x0iv/hello-build-agent/raw/main/peek.gif)
 ---
 
 ## ✨ Key features
@@ -45,6 +48,7 @@
 | `--model` / `MODEL`             | `gpt-4o-mini`        | OpenAI model name                          |
 | `QUOTA_TOKENS`                  | `10000`              | Ask human after this many tokens           |
 | `QUOTA_FAILS`                   | `3`                  | Ask human after N consecutive build errors |
+| `DISABLE_HITL`                  | `false`              | `true` → fully autonomous, no prompts      |
 
 ---
 

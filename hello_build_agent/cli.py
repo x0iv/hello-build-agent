@@ -48,13 +48,15 @@ Example (exactly one line):
 
 Never add extra fields, never use markdown or line-breaks.
 
-Flow:
+Workflow skeleton:
   clone_repo → ingest_filetree → (ingest_file?) → query_qdrant* →
-  generate_dockerfile → build.
+  generate_dockerfile → build → write_report → exit.
   On build failure → fix_dockerfile(dockerfile,error) → build.
-  If {quota_fails} consecutive build errors OR {quota_tokens} tokens are
-  consumed → ask_human.
-  Finish with exit.
+
+Quota guards:
+  after {quota_tokens} tokens or {quota_fails} consecutive build errors
+    → ask_human{{prompt}}
+  If env `DISABLE_HITL=true`, `ask_human` automatically returns `"y"`.
 
 Allowed actions & required params:
   clone_repo          {{url}}
@@ -65,6 +67,7 @@ Allowed actions & required params:
   fix_dockerfile      {{dockerfile,error}}
   query_qdrant        {{query}}
   ask_human           {{prompt}}
+  write_report        {{dockerfile?,out_path?,instructions?}}
   exit""")
 
     event_loop([system, HumanMessage(content=repo_url)], llm)

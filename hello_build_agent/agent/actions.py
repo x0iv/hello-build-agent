@@ -158,16 +158,68 @@ def fix_dockerfile(p: dict):
 # ───────────────────────────── misc actions ────────────────────────────
 @reg("ask_human")
 def ask_human(p: dict):
-    """params: {prompt}"""
-    ans = input(f"\n[LLM] {p.get('prompt', 'Continue? [y/n]: ')} ").strip().lower()[:1] or "n"
-    return {"status": "ok", "answer": ans}
+    """
+    params: {prompt}
+    Returns {"answer": "y" | "n"}.
+    • If DISABLE_HITL=true → always auto-reply "y".
+    • Otherwise prints a very visible prompt and waits for user input.
+    """
+    if os.getenv("DISABLE_HITL", "false").lower() in ("1", "true", "yes", "y"):
+        return {"status": "ok", "answer": "y"}
 
+    prompt = p.get("prompt", "Continue? [y/n]: ")
+    banner = "=" * 60
+    ans = input(f"\n{banner}\n[USER INPUT REQUIRED]\n{prompt}\n{banner}\n").strip().lower()[:1] or "n"
+    return {"status": "ok", "answer": ans}
 
 @reg("exit")
 def exit_app(_: dict):
     tracker.dump()
     raise SystemExit
 
+
+@reg("write_report")
+def write_report(p: dict):
+    """
+    params: {dockerfile? , out_path? , instructions? }
+
+    • dockerfile (optional) – plain text to embed.
+      If omitted, the function tries the most recent Dockerfile:
+         1.  /workspace/Dockerfile        (generated & built)
+         2.  /workspace/**/Dockerfile     (first match)
+    • out_path   (optional) – defaults to /workspace/REPORT.md
+    • instructions (optional) – extra usage notes.
+    """
+    out_path = Path(p.get("out_path", "/workspace/REPORT.md"))
+
+    # Resolve the Dockerfile content
+    df_text = p.get("dockerfile", "")
+    if not df_text:
+        # Fallback: look for a Dockerfile in the workspace
+        ws = Path("/workspace")
+        for candidate in [ws / "Dockerfile", *ws.rglob("Dockerfile")]:
+            if candidate.is_file():
+                df_text = candidate.read_text()
+                break
+    if not df_text:
+        return {"status": "error", "error": "Dockerfile not found"}
+
+    instructions = p.get(
+        "instructions",
+        "### How to use this image\n"
+        "```bash\n"
+        "docker build -t myapp .\n"
+        "docker run myapp\n"
+        "```"
+    )
+
+    content = (
+        "# Dockerfile (final version)\n\n"
+        "```dockerfile\n" + df_text.strip() + "\n```\n\n"
+        + instructions + "\n"
+    )
+    out_path.write_text(content)
+    return {"status": "ok", "report_path": str(out_path)}
 
 # fallback – avoids KeyError in loop.py
 @reg("unknown")
