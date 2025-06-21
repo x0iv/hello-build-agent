@@ -7,6 +7,7 @@
 [![PyPI](https://img.shields.io/pypi/v/hello-build-agent.svg)](https://pypi.org/project/hello-build-agent)
 [![CI](https://github.com/x0iv/hello-build-agent/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/x0iv/hello-build-agent/actions)
 [![Docker](https://img.shields.io/docker/pulls/x0iv/hello-build-agent)](https://hub.docker.com/r/x0iv/hello-build-agent)
+[![GHCR](https://img.shields.io/badge/ghcr.io%2Fx0iv%2Fhello--build--agent-blue)](https://github.com/x0iv/hello-build-agent/pkgs/container/hello-build-agent)
 
 [Changelog](CHANGELOG.md) • [License](LICENSE)
 
@@ -23,7 +24,7 @@
 | **Qdrant ingestion & search** | README and file-tree chunks are embedded and stored in Qdrant; you can query them later (`query_qdrant`). |
 | **Quota guards**          | Two env-controlled limits: `QUOTA_TOKENS`, `QUOTA_FAILS` ― agent pauses and asks the human before overspending. |
 | **Live Rich logs**        | Timestamp · action · comment · token-counter, neatly aligned and colourised. |
-| **CI/CD ready**           | GitHub Actions → PyPI wheel + Docker Hub image on each `vX.Y.Z` tag. |
+| **CI/CD ready**           | GitHub Actions → PyPI wheel + Docker Hub & GHCR images on each `vX.Y.Z` tag. |
 
 \* Change the model with the `MODEL` env var or `--model` CLI flag.
 

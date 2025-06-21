@@ -68,6 +68,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare tag
         id: prep
         run: echo "branch=$(echo ${GITHUB_REF##*/} | tr '/' '-')" >> $GITHUB_OUTPUT
@@ -80,5 +86,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/hello-build-agent:${{ steps.meta.outputs.version }}
             ${{ secrets.DOCKERHUB_USERNAME }}/hello-build-agent:latest
+            ghcr.io/${{ github.repository_owner }}/hello-build-agent:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/hello-build-agent:latest
           build-args: |
             HBA_VERSION=${{ steps.meta.outputs.version }}
