@@ -13,7 +13,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | \
     apt-get update && apt-get install -y docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
 
-LABEL org.opencontainers.image.version="0.5.5" \
+LABEL org.opencontainers.image.version="$HBA_VERSION" \
     org.opencontainers.image.revision="$HBA_VERSION" \
     org.opencontainers.image.title="hello-build-agent" \
     org.opencontainers.image.description="Autonomous Dockerfile generator & build agent" \
