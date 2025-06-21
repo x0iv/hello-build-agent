@@ -5,7 +5,7 @@
 > optimal **Dockerfile**, then builds, self-repairs and logs every step.
 
 [![PyPI](https://img.shields.io/pypi/v/hello-build-agent.svg)](https://pypi.org/project/hello-build-agent)
-[![CI](https://github.com/x0iv/hello-build-agent/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/x0iv/hello-build-agent/actions)
+[![CI](https://github.com/x0iv/hello-build-agent/actions/workflows/ci-cd.yml/badge.svg?event=push)](https://github.com/x0iv/hello-build-agent/actions)
 [![Docker](https://img.shields.io/docker/pulls/x0iv/hello-build-agent)](https://hub.docker.com/r/x0iv/hello-build-agent)
 [![GHCR](https://img.shields.io/badge/ghcr.io%2Fx0iv%2Fhello--build--agent-blue)](https://github.com/x0iv/hello-build-agent/pkgs/container/hello-build-agent)
 
