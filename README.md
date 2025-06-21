@@ -18,7 +18,7 @@
 
 | 🧩 | Description |
 |----|-------------|
-| **LLM-driven Dockerfile** | Uses OpenAI (GPT-4o* by default) to propose a minimal, working Dockerfile based on real file-tree analysis. |
+| **LLM-driven Dockerfile** | Uses OpenAI (gpt-4o-mini* by default) to propose a minimal, working Dockerfile based on real file-tree analysis. |
 | **Self-healing loop**     | If the image fails to build, the agent feeds the error back to the LLM → receives a patch → retries ― until success or user input. |
 | **Qdrant ingestion & search** | README and file-tree chunks are embedded and stored in Qdrant; you can query them later (`query_qdrant`). |
 | **Quota guards**          | Two env-controlled limits: `QUOTA_TOKENS`, `QUOTA_FAILS` ― agent pauses and asks the human before overspending. |
